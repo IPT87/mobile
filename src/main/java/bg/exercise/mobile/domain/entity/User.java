@@ -25,7 +25,7 @@ public class User extends BaseEntity {
     private String lastName;
     @Column(name = "is_active")
     private boolean isActive;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private UserRole role;
     @Column(name = "image_url")
     private String imageUrl;

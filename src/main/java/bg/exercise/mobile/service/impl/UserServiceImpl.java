@@ -7,6 +7,8 @@ import bg.exercise.mobile.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -21,6 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerUser(UserDto userDto) {
         User user = mapper.map(userDto, User.class);
+        user.setCreated(LocalDate.now());
         return this.userRepository.save(user);
     }
 }

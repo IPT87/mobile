@@ -5,6 +5,7 @@ import bg.exercise.mobile.enums.Role;
 import bg.exercise.mobile.service.impl.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +22,7 @@ public class RegisterController {
 
     @GetMapping
     public ModelAndView registerUser(ModelAndView modelAndView) {
-        modelAndView.addObject("user-roles", Role.values());
+        modelAndView.addObject("user_roles", Role.values());
         modelAndView.setViewName("auth-register");
         return modelAndView;
     }
@@ -30,7 +31,7 @@ public class RegisterController {
     public String redirectAfterRegister(UserDto userDto) {
         this.userService.registerUser(userDto);
 
-        return "redirect:/auth-login";
+        return "auth-login";
     }
 
 }
