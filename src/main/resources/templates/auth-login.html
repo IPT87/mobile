@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
      <meta charset="UTF-8">
     <title>MobiLeLeLe</title>
@@ -31,7 +31,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/offers/all">All Offers</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li th:if="${loggedUser} and ${loggedUser.getRole() == 'ADMIN'}" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
@@ -43,18 +43,18 @@
                         <a class="dropdown-item" href="/">Something else here</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li th:if="${loggedUser}" class="nav-item">
                     <div class="form-inline my-2 my-lg-0 border px-3">
                         <div class="logged-user"
-                             text="Welcome, Gosho"></div>
+                             th:text="|Welcome, ${loggedUser.getFirstName()}|"></div>
                         <a class="nav-link" href="/users/logout">Logout</a>
                     </div>
                 </li>
                 
-                    <li class="nav-item">
+                    <li th:if="${loggedUser == null}" class="nav-item">
                         <a class="nav-link" href="/users/register">Register</a>
                     </li>
-                    <li class="nav-item">
+                    <li th:if="${loggedUser == null}" class="nav-item">
                         <a class="nav-link" href="/users/login">Login</a>
                     </li>
                 
@@ -64,9 +64,9 @@
 
 </div>
 
-<div class="container">
+<div th:if="${loggedUser == null}" class="container">
     <h2 class="text-center text-white">Login</h2>
-    <form method="POST" 
+    <form method="POST"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
             <label for="username" class="text-white font-weight-bold">Username</label>

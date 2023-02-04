@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
         user.setCreated(LocalDate.now());
         return this.userRepository.save(user);
     }
+
+    @Override
+    public User getUserByUsernameAndPassword(String username, String password) {
+        return this.userRepository.getUserByUsernameAndPassword(username, password).orElse(null);
+    }
 }
