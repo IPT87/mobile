@@ -45,18 +45,18 @@
                         <a class="dropdown-item" href="/">Something else here</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li th:if="${@loggedUser.getFirstName() != null}" class="nav-item">
                     <div class="form-inline my-2 my-lg-0 border px-3">
                         <div class="logged-user"
-                             text="Welcome"></div>
+                             th:text="|Welcome, ${@loggedUser.getFirstName()}|"></div>
                         <a class="nav-link" href="/users/logout">Logout</a>
                     </div>
                 </li>
                 
-                    <li class="nav-item">
+                    <li th:if="${@loggedUser.getFirstName() == null}" class="nav-item">
                         <a class="nav-link" href="/users/register">Register</a>
                     </li>
-                    <li class="nav-item">
+                    <li th:if="${@loggedUser.getFirstName() == null}" class="nav-item">
                         <a class="nav-link" href="/users/login">Login</a>
                     </li>
                 
@@ -66,7 +66,7 @@
 </div>
 
 
-<div class="container-fluid">
+<div th:if="${@loggedUser.getFirstName() == null}" class="container-fluid">
     <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe</h5>
 </div>
 

@@ -31,7 +31,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/offers/all">All Offers</a>
                 </li>
-                <li th:if="${loggedUser} and ${loggedUser.getRole() == 'ADMIN'}" class="nav-item dropdown">
+                <li th:if="${@loggedUser.getFirstName() != null} and ${@loggedUser.getRole() == 'ADMIN'}" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
@@ -43,18 +43,18 @@
                         <a class="dropdown-item" href="/">Something else here</a>
                     </div>
                 </li>
-                <li th:if="${loggedUser}" class="nav-item">
+                <li th:if="${@loggedUser.getFirstName() != null}" class="nav-item">
                     <div class="form-inline my-2 my-lg-0 border px-3">
                         <div class="logged-user"
-                             th:text="|Welcome, ${loggedUser.getFirstName()}|"></div>
+                             th:text="|Welcome, ${@loggedUser.getFirstName()}|"></div>
                         <a class="nav-link" href="/users/logout">Logout</a>
                     </div>
                 </li>
                 
-                    <li th:if="${loggedUser == null}" class="nav-item">
+                    <li th:if="${@loggedUser.getFirstName() == null}" class="nav-item">
                         <a class="nav-link" href="/users/register">Register</a>
                     </li>
-                    <li th:if="${loggedUser == null}" class="nav-item">
+                    <li th:if="${@loggedUser.getFirstName() == null}" class="nav-item">
                         <a class="nav-link" href="/users/login">Login</a>
                     </li>
                 
@@ -64,32 +64,26 @@
 
 </div>
 
-<div th:if="${loggedUser == null}" class="container">
+<div th:if="${@loggedUser.getFirstName() == null}" class="container">
     <h2 class="text-center text-white">Login</h2>
     <form method="POST"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
             <label for="username" class="text-white font-weight-bold">Username</label>
-            <input value="username" id="username" name="username" type="text" min="2" max="50"
-                   class="form-control"
-                   placeholder="Username"/>
+            <input id="username" name="username" type="text" min="2" max="50"
+                   class="form-control"/>
         </div>
         <div class="form-group">
             <label for="password" class="text-white font-weight-bold">Password</label>
-            <input  value="password" id="password" name="password" type="password" min="2"
-                   max="20" class="form-control"
-                   placeholder="Password"/>
+            <input id="password" name="password" type="password" min="2"
+                   max="20" class="form-control"/>
 
         </div>
-        
-        <p class="errors alert alert-danger">
-            Invalid username or password.
-        </p>
 
         <div class="row">
             <div class="col col-md-4">
                 <div class="button-holder d-flex">
-                    <input type="submit" class="btn btn-info btn-lg" value="Submit Offer"/>
+                    <input type="submit" class="btn btn-info btn-lg" value="Login"/>
                 </div>
             </div>
         </div>

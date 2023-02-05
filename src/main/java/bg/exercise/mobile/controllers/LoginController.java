@@ -4,7 +4,6 @@ import bg.exercise.mobile.domain.dto.LoggedUser;
 import bg.exercise.mobile.domain.dto.LoginUserDto;
 import bg.exercise.mobile.domain.entity.User;
 import bg.exercise.mobile.service.impl.UserServiceImpl;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     private final UserServiceImpl userService;
+    private final LoggedUser loggedUser;
 
     @Autowired
-    public LoginController(UserServiceImpl userService) {
+    public LoginController(UserServiceImpl userService, LoggedUser loggedUser) {
         this.userService = userService;
+        this.loggedUser = loggedUser;
     }
 
     @GetMapping
@@ -36,9 +37,9 @@ public class LoginController {
 
         if (this.userService.getUserByUsernameAndPassword(username, password) != null) {
             User user = this.userService.getUserByUsernameAndPassword(username, password);
-            LoggedUser loggedUser = new LoggedUser(user.getFirstName(), user.getRole().toString());
+            this.loggedUser.setFirstName(user.getFirstName());
+            this.loggedUser.setRole(user.getRole().getRole().toString());
 
-            modelAndView.addObject("loggedUser", loggedUser);
             modelAndView.setViewName("auth-login");
         } else {
 
