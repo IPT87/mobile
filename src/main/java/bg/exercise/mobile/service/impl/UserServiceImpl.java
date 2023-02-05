@@ -1,5 +1,6 @@
 package bg.exercise.mobile.service.impl;
 
+import bg.exercise.mobile.domain.dto.LoggedUser;
 import bg.exercise.mobile.domain.dto.UserDto;
 import bg.exercise.mobile.domain.entity.User;
 import bg.exercise.mobile.repository.UserRepository;
@@ -14,10 +15,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper mapper;
+    private final LoggedUser loggedUser;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper, LoggedUser loggedUser) {
         this.userRepository = userRepository;
         this.mapper = mapper;
+        this.loggedUser = loggedUser;
     }
 
     @Override
@@ -30,5 +33,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsernameAndPassword(String username, String password) {
         return this.userRepository.getUserByUsernameAndPassword(username, password).orElse(null);
+    }
+
+    @Override
+    public void logout() {
+        this.loggedUser.setFirstName(null);
+        this.loggedUser.setRole(null);
     }
 }

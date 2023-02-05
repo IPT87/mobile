@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
        <meta charset="UTF-8">
@@ -70,7 +70,7 @@
     <div class='row mb-4 d-flex justify-content-around'>
         <div  class="brand-section col-md-5 mr-auto d-flex flex-column">
             <h2>Car brand:
-                <span >Brand name</span>
+                <span th:text="${brand}"></span>
             </h2>
             <div>Models:
                 <table>
@@ -82,13 +82,13 @@
                         <th>End Year</th>
                         <th>Picture</th>
                     </tr>
-                    <tr>
-                        <th>No</th>
-                        <th >Model Name</th>
-                        <th >Model Category</th>
-                        <th >Model Start Year</th>
-                        <th >Model End Year</th>
-                        <th><img alt="image" src="/"
+                    <tr th:each="brandModel : ${brandsList}">
+                        <th th:text="${brandModel.getId()}"></th>
+                        <th th:text="${brandModel.getName()}"></th>
+                        <th th:text="${brandModel.getCategory()}"></th>
+                        <th th:text="${brandModel.getStartYear()}"></th>
+                        <th th:text="${brandModel.getEndYear()}"></th>
+                        <th><img alt="image" th:src="${brandModel.getImageUrl()}"
                                  class="img-thumbnail rounded"></th>
                     </tr>
                 </table>
